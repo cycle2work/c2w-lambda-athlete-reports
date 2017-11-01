@@ -24,10 +24,10 @@ export async function retrieveActivities(query = {}) {
 export async function retrieveMatchingReport(activity, year, month) {
     const db = await getMongoClient();
     const report = await db.collection(REPORTS_COLLECTION).findOne({
-        _id: `${activity.athlete.id}-${year}-${month}`
+        _id: `${activity.athlete.id}${year}${month}`
     });
     return report || {
-        _id: `${activity.athlete.id}-${year}-${month}`,
+        _id: `${activity.athlete.id}${year}${month}`,
         year,
         month,
         distances: []

@@ -38,24 +38,29 @@ describe("`Cycle2work reports function`", () => {
         };
     });
 
+    const athlete1 = { id: 1 };
+    const athlete2 = { id: 2 };
+    const athlete3 = { id: 3 };
+
     it("[1/4]: first athlete activity, create first new report", async () => {
 
         await db.collection(ACTIVITIES_COLLECTION).insert({
             start_date: "2017-10-01T00:00:00Z",
             distance: 20,
-            athlete: { id: 1 }
+            athlete: athlete1
         });
 
         await handler(null, context);
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1-2017-10" });
+        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1201710" });
         expect(report).to.be.deep.equal({
-            _id: "1-2017-10",
+            _id: "1201710",
             year: 2017,
-            month: 10,
-            distances: [20]
+            month: "10",
+            distances: [20],
+            athlete: athlete1
         });
 
         const processed = await db.collection(PROCESSED_ACTIVITIES_COLLECTION).find().toArray();
@@ -70,19 +75,20 @@ describe("`Cycle2work reports function`", () => {
         await db.collection(ACTIVITIES_COLLECTION).insert({
             start_date: "2017-10-01T00:00:00Z",
             distance: 25,
-            athlete: { id: 1 }
+            athlete: athlete1
         });
 
         await handler(null, context);
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1-2017-10" });
+        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1201710" });
         expect(report).to.be.deep.equal({
-            _id: "1-2017-10",
+            _id: "1201710",
             year: 2017,
-            month: 10,
-            distances: [20, 25]
+            month: "10",
+            distances: [20, 25],
+            athlete: athlete1
         });
 
         const processed = await db.collection(PROCESSED_ACTIVITIES_COLLECTION).find().toArray();
@@ -97,19 +103,20 @@ describe("`Cycle2work reports function`", () => {
         await db.collection(ACTIVITIES_COLLECTION).insert({
             start_date: "2017-11-01T00:00:00Z",
             distance: 35,
-            athlete: { id: 1 }
+            athlete: athlete1
         });
 
         await handler(null, context);
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1-2017-11" });
+        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1201711" });
         expect(report).to.be.deep.equal({
-            _id: "1-2017-11",
+            _id: "1201711",
             year: 2017,
-            month: 11,
-            distances: [35]
+            month: "11",
+            distances: [35],
+            athlete: athlete1
         });
 
         const processed = await db.collection(PROCESSED_ACTIVITIES_COLLECTION).find().toArray();
@@ -125,31 +132,31 @@ describe("`Cycle2work reports function`", () => {
             {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 35,
-                athlete: { id: 1 }
+                athlete: athlete1
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 35,
-                athlete: { id: 1 }
+                athlete: athlete1
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 15,
-                athlete: { id: 2 }
+                athlete: athlete2
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 15,
-                athlete: { id: 2 }
+                athlete: athlete2
             }, {
                 start_date: "2017-11-02T00:00:00Z",
                 distance: 15,
-                athlete: { id: 2 }
+                athlete: athlete2
             }, {
                 start_date: "2017-08-01T00:00:00Z",
                 distance: 20,
-                athlete: { id: 3 }
+                athlete: athlete3
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 20,
-                athlete: { id: 3 }
+                athlete: athlete3
             }
         ]);
 
@@ -160,30 +167,35 @@ describe("`Cycle2work reports function`", () => {
         const reports = await db.collection(REPORTS_COLLECTION).find().toArray();
         expect(reports).to.be.deep.equal([
             {
-                _id: "1-2017-10",
+                _id: "1201710",
                 year: 2017,
-                month: 10,
-                distances: [20, 25]
+                month: "10",
+                distances: [20, 25],
+                athlete: athlete1
             }, {
-                _id: "1-2017-11",
+                _id: "1201711",
                 year: 2017,
-                month: 11,
-                distances: [35, 35, 35]
+                month: "11",
+                distances: [35, 35, 35],
+                athlete: athlete1
             }, {
-                _id: "2-2017-11",
+                _id: "2201711",
                 year: 2017,
-                month: 11,
-                distances: [15, 15, 15]
+                month: "11",
+                distances: [15, 15, 15],
+                athlete: athlete2
             }, {
-                _id: "3-2017-8",
+                _id: "3201708",
                 year: 2017,
-                month: 8,
-                distances: [20]
+                month: "08",
+                distances: [20],
+                athlete: athlete3
             }, {
-                _id: "3-2017-11",
+                _id: "3201711",
                 year: 2017,
-                month: 11,
-                distances: [20]
+                month: "11",
+                distances: [20],
+                athlete: athlete3
             }
         ]);
 

@@ -19,11 +19,11 @@ export default async function pipeline(event, context) {
         await each(activities, async (activity) => {
 
             log.debug({ activity });
-            const { distance } = activity;
+            const { athlete, distance } = activity;
 
             const date = moment.utc(activity.start_date);
             const year = date.year();
-            const month = date.month() + 1;
+            const month = date.format("MM");
             log.debug({ date, year, month });
 
             const report = await retrieveMatchingReport(activity, year, month);
@@ -31,6 +31,7 @@ export default async function pipeline(event, context) {
 
             const updatedReport = {
                 ...report,
+                athlete,
                 distances: [...report.distances, distance]
             };
             log.debug({ updatedReport });
