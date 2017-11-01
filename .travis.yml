@@ -1,0 +1,27 @@
+language: node_js
+
+node_js:
+  - 8
+
+services:
+  - mongodb
+
+deploy:
+  provider: lambda
+  function_name: "cycle2work-reports-$TRAVIS_BRANCH"
+  region: "eu-west-1"
+  role: "arn:aws:iam::881121095103:role/travis"
+  runtime: "nodejs6.10"
+  module_name: "bundle/index"
+  handler_name: "handler"
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  environment_variables:
+    - MONGODB_URL=$MONGODB_URL
+    - LOG_LEVEL=debug
+
+script:
+  - yarn lint
+  - yarn coverage
+  - yarn codecov
+  - yarn build
