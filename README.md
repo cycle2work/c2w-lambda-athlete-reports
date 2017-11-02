@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/mondora/cycle2work-reports.svg?branch=master)](https://travis-ci.org/mondora/cycle2work-reports)
-[![Dependency Status](https://david-dm.org/mondora/cycle2work-reports.svg)](https://david-dm.org/mondora/cycle2work-reports)
-[![devDependency Status](https://david-dm.org/mondora/cycle2work-reports/dev-status.svg)](https://david-dm.org/mondora/cycle2work-reports#info=devDependencies)
+[![Build Status](https://travis-ci.org/cycle2work/c2w-lambda-athlete-reports.svg?branch=master)](https://travis-ci.org/cycle2work/c2w-lambda-athlete-reports)
+[![Dependency Status](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports.svg)](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports)
+[![devDependency Status](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports/dev-status.svg)](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports#info=devDependencies)
 
-# cycle2work-reports
+# c2w-lambda-athlete-reports
 
 AWS Lambda function to process user's co2 saving data to enjoy [`Cycle2work`](https://cycle2work.io).
 
