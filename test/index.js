@@ -42,12 +42,15 @@ describe("`Cycle2work reports function`", () => {
     const athlete2 = { id: 2 };
     const athlete3 = { id: 3 };
 
+    const club = { id: 1 };
+
     it("[1/4]: first athlete activity, create first new report", async () => {
 
         await db.collection(ACTIVITIES_COLLECTION).insert({
             start_date: "2017-10-01T00:00:00Z",
             distance: 20,
-            athlete: athlete1
+            athlete: athlete1,
+            club
         });
 
         await handler(null, context);
@@ -60,7 +63,8 @@ describe("`Cycle2work reports function`", () => {
             year: 2017,
             month: "10",
             distances: [20],
-            athlete: athlete1
+            athlete: athlete1,
+            club
         });
 
         const processed = await db.collection(PROCESSED_ACTIVITIES_COLLECTION).find().toArray();
@@ -75,7 +79,8 @@ describe("`Cycle2work reports function`", () => {
         await db.collection(ACTIVITIES_COLLECTION).insert({
             start_date: "2017-10-01T00:00:00Z",
             distance: 25,
-            athlete: athlete1
+            athlete: athlete1,
+            club
         });
 
         await handler(null, context);
@@ -88,7 +93,8 @@ describe("`Cycle2work reports function`", () => {
             year: 2017,
             month: "10",
             distances: [20, 25],
-            athlete: athlete1
+            athlete: athlete1,
+            club
         });
 
         const processed = await db.collection(PROCESSED_ACTIVITIES_COLLECTION).find().toArray();
@@ -103,7 +109,8 @@ describe("`Cycle2work reports function`", () => {
         await db.collection(ACTIVITIES_COLLECTION).insert({
             start_date: "2017-11-01T00:00:00Z",
             distance: 35,
-            athlete: athlete1
+            athlete: athlete1,
+            club
         });
 
         await handler(null, context);
@@ -116,7 +123,8 @@ describe("`Cycle2work reports function`", () => {
             year: 2017,
             month: "11",
             distances: [35],
-            athlete: athlete1
+            athlete: athlete1,
+            club
         });
 
         const processed = await db.collection(PROCESSED_ACTIVITIES_COLLECTION).find().toArray();
@@ -132,31 +140,38 @@ describe("`Cycle2work reports function`", () => {
             {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 35,
-                athlete: athlete1
+                athlete: athlete1,
+                club
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 35,
-                athlete: athlete1
+                athlete: athlete1,
+                club
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 15,
-                athlete: athlete2
+                athlete: athlete2,
+                club
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 15,
-                athlete: athlete2
+                athlete: athlete2,
+                club
             }, {
                 start_date: "2017-11-02T00:00:00Z",
                 distance: 15,
-                athlete: athlete2
+                athlete: athlete2,
+                club
             }, {
                 start_date: "2017-08-01T00:00:00Z",
                 distance: 20,
-                athlete: athlete3
+                athlete: athlete3,
+                club
             }, {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 20,
-                athlete: athlete3
+                athlete: athlete3,
+                club
             }
         ]);
 
@@ -171,31 +186,36 @@ describe("`Cycle2work reports function`", () => {
                 year: 2017,
                 month: "10",
                 distances: [20, 25],
-                athlete: athlete1
+                athlete: athlete1,
+                club
             }, {
                 _id: "1201711",
                 year: 2017,
                 month: "11",
                 distances: [35, 35, 35],
-                athlete: athlete1
+                athlete: athlete1,
+                club
             }, {
                 _id: "2201711",
                 year: 2017,
                 month: "11",
                 distances: [15, 15, 15],
-                athlete: athlete2
+                athlete: athlete2,
+                club
             }, {
                 _id: "3201708",
                 year: 2017,
                 month: "08",
                 distances: [20],
-                athlete: athlete3
+                athlete: athlete3,
+                club
             }, {
                 _id: "3201711",
                 year: 2017,
                 month: "11",
                 distances: [20],
-                athlete: athlete3
+                athlete: athlete3,
+                club
             }
         ]);
 
