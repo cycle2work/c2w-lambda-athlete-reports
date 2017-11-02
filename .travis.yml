@@ -8,7 +8,7 @@ services:
 
 deploy:
   provider: lambda
-  function_name: "cycle2work-reports-$TRAVIS_BRANCH"
+  function_name: "c2w-lambda-athlete-reports-$TRAVIS_BRANCH"
   region: "eu-west-1"
   role: "arn:aws:iam::881121095103:role/travis"
   runtime: "nodejs6.10"
