@@ -19,7 +19,7 @@ export default async function pipeline(event, context) {
         await each(activities, async (activity) => {
 
             log.debug({ activity });
-            const { athlete, distance } = activity;
+            const { athlete, club, distance } = activity;
 
             const date = moment.utc(activity.start_date);
             const year = date.year();
@@ -32,6 +32,7 @@ export default async function pipeline(event, context) {
             const updatedReport = {
                 ...report,
                 athlete,
+                club,
                 distances: [...report.distances, distance]
             };
             log.debug({ updatedReport });
