@@ -43,11 +43,6 @@ export async function upsertReport(report) {
     );
 }
 
-export async function retrieveReports(query = {}) {
-    const db = await getMongoClient();
-    return await db.collection(REPORTS_COLLECTION).find(query).toArray();
-}
-
 export async function moveActivities(activities = []) {
     if (activities.length > 0) {
         const db = await getMongoClient();
