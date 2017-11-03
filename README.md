@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/cycle2work/c2w-lambda-athlete-reports.svg?branch=master)](https://travis-ci.org/cycle2work/c2w-lambda-athlete-reports)
+[![codecov](https://codecov.io/gh/cycle2work/c2w-lambda-athlete-reports/branch/master/graph/badge.svg)](https://codecov.io/gh/cycle2work/c2w-lambda-athlete-reports)
 [![Dependency Status](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports.svg)](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports)
 [![devDependency Status](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports/dev-status.svg)](https://david-dm.org/cycle2work/c2w-lambda-athlete-reports#info=devDependencies)
 
