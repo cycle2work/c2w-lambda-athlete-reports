@@ -11,8 +11,23 @@ After cloning the repository, run `npm install` or [`yarn`](https://yarnpkg.com)
 
 ## Table of Contents
 
-- [Configuration](#folder-structure)
-  - [Env Vars](#env-vars)
+*   [Report output](#report-outpu)
+*   [Configuration](#configuration)
+    *   [Env Vars](#env-vars)
+
+## Report output
+
+Activities reports are scoped by month, year and athlete id:
+
+```js
+{
+    _id, // Scoped by `${activity.athlete.id}${year}${month}`
+    year, // YYYY
+    month, // MM
+    activities: [], // Array containing all the athlete activities for this report
+    distances: [] // Deprecated: array containing all the distances of the athlete activities, use `activities` property instead since this property could contains duplicated activities
+}
+```
 
 ## Configuration
 

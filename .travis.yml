@@ -11,9 +11,10 @@ deploy:
   function_name: "c2w-lambda-athlete-reports-$TRAVIS_BRANCH"
   region: "eu-west-1"
   role: "arn:aws:iam::881121095103:role/travis"
-  runtime: "nodejs6.10"
+  runtime: "nodejs8.10"
   module_name: "bundle/index"
   handler_name: "handler"
+  timeout: 120
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   environment_variables:

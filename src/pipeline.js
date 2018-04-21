@@ -1,25 +1,17 @@
-import moment from "moment";
 import { each } from "bluebird";
+import uniqby from "lodash.uniqby";
+import moment from "moment";
 
 import { log } from "./services/logger";
-import {
-    moveActivities,
-    retrieveActivities,
-    retrieveMatchingReport,
-    upsertReport
-} from "./services/mongo-db";
+import { moveActivities, retrieveActivities, retrieveMatchingReport, upsertReport } from "./services/mongo-db";
 
 export default async function pipeline(event, context) {
-
     try {
-
         const activities = await retrieveActivities();
 
-
-        await each(activities, async (activity) => {
-
+        await each(activities, async activity => {
             log.debug({ activity });
-            const { athlete, club, distance } = activity;
+            const { athlete, club, distance, id } = activity;
 
             const date = moment.utc(activity.start_date);
             const year = date.year();
@@ -33,16 +25,24 @@ export default async function pipeline(event, context) {
                 ...report,
                 athlete,
                 club,
+                activities: uniqby(
+                    [
+                        ...report.activities,
+                        {
+                            distance,
+                            id
+                        }
+                    ],
+                    "id"
+                ),
                 distances: [...report.distances, distance]
             };
             log.debug({ updatedReport });
 
             await upsertReport(updatedReport);
-
         });
 
         await moveActivities(activities);
-
     } catch (error) {
         log.debug({ error });
     }
