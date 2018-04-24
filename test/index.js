@@ -52,9 +52,9 @@ describe("Cycle2work reports function", () => {
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1201710" });
+        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "11201710" });
         expect(report).to.be.deep.equal({
-            _id: "1201710",
+            _id: "11201710",
             year: 2017,
             month: "10",
             activities: [
@@ -94,9 +94,9 @@ describe("Cycle2work reports function", () => {
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1201710" });
+        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "11201710" });
         expect(report).to.be.deep.equal({
-            _id: "1201710",
+            _id: "11201710",
             year: 2017,
             month: "10",
             activities: [
@@ -140,9 +140,9 @@ describe("Cycle2work reports function", () => {
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "1201711" });
+        const report = await db.collection(REPORTS_COLLECTION).findOne({ _id: "11201711" });
         expect(report).to.be.deep.equal({
-            _id: "1201711",
+            _id: "11201711",
             year: 2017,
             month: "11",
             activities: [
@@ -232,7 +232,7 @@ describe("Cycle2work reports function", () => {
             .toArray();
         expect(reports).to.be.deep.equal([
             {
-                _id: "1201710",
+                _id: "11201710",
                 year: 2017,
                 month: "10",
                 activities: [
@@ -250,7 +250,7 @@ describe("Cycle2work reports function", () => {
                 club
             },
             {
-                _id: "1201711",
+                _id: "11201711",
                 year: 2017,
                 month: "11",
                 activities: [
@@ -268,7 +268,7 @@ describe("Cycle2work reports function", () => {
                 club
             },
             {
-                _id: "2201711",
+                _id: "21201711",
                 year: 2017,
                 month: "11",
                 activities: [
@@ -286,7 +286,7 @@ describe("Cycle2work reports function", () => {
                 club
             },
             {
-                _id: "3201708",
+                _id: "31201708",
                 year: 2017,
                 month: "08",
                 activities: [
@@ -300,7 +300,7 @@ describe("Cycle2work reports function", () => {
                 club
             },
             {
-                _id: "3201711",
+                _id: "31201711",
                 year: 2017,
                 month: "11",
                 activities: [
