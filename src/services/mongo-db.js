@@ -28,7 +28,7 @@ export async function retrieveMatchingReport(activity, year, month) {
         report || {
             _id: `${activity.athlete.id}${activity.club.id}${year}${month}`,
             year,
-            month,
+            month: parseInt(month),
             activities: [],
             distances: []
         }

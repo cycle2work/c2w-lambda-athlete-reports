@@ -56,7 +56,7 @@ describe("Cycle2work reports function", () => {
         expect(report).to.be.deep.equal({
             _id: "11201710",
             year: 2017,
-            month: "10",
+            month: 10,
             activities: [
                 {
                     id: 1,
@@ -98,7 +98,7 @@ describe("Cycle2work reports function", () => {
         expect(report).to.be.deep.equal({
             _id: "11201710",
             year: 2017,
-            month: "10",
+            month: 10,
             activities: [
                 {
                     id: 1,
@@ -144,7 +144,7 @@ describe("Cycle2work reports function", () => {
         expect(report).to.be.deep.equal({
             _id: "11201711",
             year: 2017,
-            month: "11",
+            month: 11,
             activities: [
                 {
                     id: 3,
@@ -234,7 +234,7 @@ describe("Cycle2work reports function", () => {
             {
                 _id: "11201710",
                 year: 2017,
-                month: "10",
+                month: 10,
                 activities: [
                     {
                         id: 1,
@@ -252,7 +252,7 @@ describe("Cycle2work reports function", () => {
             {
                 _id: "11201711",
                 year: 2017,
-                month: "11",
+                month: 11,
                 activities: [
                     {
                         id: 3,
@@ -270,7 +270,7 @@ describe("Cycle2work reports function", () => {
             {
                 _id: "21201711",
                 year: 2017,
-                month: "11",
+                month: 11,
                 activities: [
                     {
                         id: 5,
@@ -288,7 +288,7 @@ describe("Cycle2work reports function", () => {
             {
                 _id: "31201708",
                 year: 2017,
-                month: "08",
+                month: 8,
                 activities: [
                     {
                         id: 7,
@@ -302,7 +302,7 @@ describe("Cycle2work reports function", () => {
             {
                 _id: "31201711",
                 year: 2017,
-                month: "11",
+                month: 11,
                 activities: [
                     {
                         id: 8,
