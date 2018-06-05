@@ -43,19 +43,20 @@ export async function upsertReport(report) {
 export async function moveActivities(activities = []) {
     if (activities.length > 0) {
         const db = await getMongoClient();
-        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).insertMany(
-            activities.map(activity => {
-                return {
-                    _id: activity.id,
-                    computed: true,
-                    ...activity
-                };
-            })
-        );
+
+        const ids = activities.map(x => x._id);
+
+        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).remove({
+            _id: {
+                $in: ids
+            }
+        });
+
+        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).insertMany(activities);
 
         await db.collection(ACTIVITIES_COLLECTION).remove({
             _id: {
-                $in: activities.map(x => x._id)
+                $in: ids
             }
         });
     }
