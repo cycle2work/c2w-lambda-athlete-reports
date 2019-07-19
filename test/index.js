@@ -263,7 +263,7 @@ describe("Cycle2work reports function", () => {
                         distance: 35
                     }
                 ],
-                distances: [35, 35, 35],
+                distances: [35, 35],
                 athlete: athlete1,
                 club
             },
@@ -281,7 +281,7 @@ describe("Cycle2work reports function", () => {
                         distance: 15
                     }
                 ],
-                distances: [15, 15, 15],
+                distances: [15, 15],
                 athlete: athlete2,
                 club
             },

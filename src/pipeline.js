@@ -21,21 +21,23 @@ export default async function pipeline(event, context) {
             const report = await retrieveMatchingReport(activity, year, month);
             log.debug({ report });
 
+            const uniqActivities = uniqby(
+                [
+                    ...report.activities,
+                    {
+                        distance,
+                        id
+                    }
+                ],
+                "id"
+            );
+
             const updatedReport = {
                 ...report,
                 athlete,
                 club,
-                activities: uniqby(
-                    [
-                        ...report.activities,
-                        {
-                            distance,
-                            id
-                        }
-                    ],
-                    "id"
-                ),
-                distances: [...report.distances, distance]
+                activities: uniqActivities,
+                distances: uniqActivities.map(activity => activity.distance)
             };
             log.debug({ updatedReport });
 
