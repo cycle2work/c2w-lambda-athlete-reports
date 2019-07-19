@@ -52,7 +52,22 @@ export async function moveActivities(activities = []) {
             }
         });
 
-        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).insertMany(activities);
+        const updatedActivities = activities.map(activity => ({
+            _id: activity._id,
+            id: activity.id,
+            distance: activity.distance,
+            year: activity.year,
+            month: activity.month,
+            day: activity.day,
+            club: {
+                id: activity.club.id
+            },
+            athlete: {
+                id: activity.athlete.id
+            }
+        }));
+
+        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).insertMany(updatedActivities);
 
         await db.collection(ACTIVITIES_COLLECTION).remove({
             _id: {
