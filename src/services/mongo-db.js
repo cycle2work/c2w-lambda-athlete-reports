@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-import { MONGODB_URL, ACTIVITIES_COLLECTION, PROCESSED_ACTIVITIES_COLLECTION, REPORTS_COLLECTION } from "../config";
+import { MONGODB_URL, ACTIVITIES_COLLECTION, REPORTS_COLLECTION } from "../config";
 
 let dbInstance;
 
@@ -13,16 +13,13 @@ export async function getMongoClient() {
 
 export async function retrieveActivities(query = {}) {
     const db = await getMongoClient();
-    return await db
-        .collection(ACTIVITIES_COLLECTION)
-        .find(query)
-        .toArray();
+    return await db.collection(ACTIVITIES_COLLECTION).find(query).toArray();
 }
 
 export async function retrieveMatchingReport(activity, year, month) {
     const db = await getMongoClient();
     const report = await db.collection(REPORTS_COLLECTION).findOne({
-        _id: `${activity.athlete.id}${activity.club.id}${year}${month}`
+        _id: `${activity.athlete.id}${activity.club.id}${year}${month}`,
     });
     return (
         report || {
@@ -30,7 +27,7 @@ export async function retrieveMatchingReport(activity, year, month) {
             year,
             month: parseInt(month),
             activities: [],
-            distances: []
+            distances: [],
         }
     );
 }
@@ -44,35 +41,12 @@ export async function moveActivities(activities = []) {
     if (activities.length > 0) {
         const db = await getMongoClient();
 
-        const ids = activities.map(x => x._id);
-
-        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).remove({
-            _id: {
-                $in: ids
-            }
-        });
-
-        const updatedActivities = activities.map(activity => ({
-            _id: activity._id,
-            id: activity.id,
-            distance: activity.distance,
-            year: activity.year,
-            month: activity.month,
-            day: activity.day,
-            club: {
-                id: activity.club.id
-            },
-            athlete: {
-                id: activity.athlete.id
-            }
-        }));
-
-        await db.collection(PROCESSED_ACTIVITIES_COLLECTION).insertMany(updatedActivities);
+        const ids = activities.map((x) => x._id);
 
         await db.collection(ACTIVITIES_COLLECTION).remove({
             _id: {
-                $in: ids
-            }
+                $in: ids,
+            },
         });
     }
 }

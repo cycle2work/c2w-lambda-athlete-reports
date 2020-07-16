@@ -5,7 +5,7 @@ import sinonChai from "sinon-chai";
 chai.use(sinonChai);
 
 import { handler } from "index";
-import { ACTIVITIES_COLLECTION, PROCESSED_ACTIVITIES_COLLECTION, REPORTS_COLLECTION } from "config";
+import { ACTIVITIES_COLLECTION, REPORTS_COLLECTION } from "config";
 
 import { getMongoClient } from "services/mongo-db";
 
@@ -16,20 +16,18 @@ describe("Cycle2work reports function", () => {
     before(async () => {
         db = await getMongoClient();
         await db.createCollection(ACTIVITIES_COLLECTION);
-        await db.createCollection(PROCESSED_ACTIVITIES_COLLECTION);
         await db.createCollection(REPORTS_COLLECTION);
     });
 
     after(async () => {
         await db.dropCollection(ACTIVITIES_COLLECTION);
-        await db.dropCollection(PROCESSED_ACTIVITIES_COLLECTION);
         await db.dropCollection(REPORTS_COLLECTION);
         await db.close();
     });
 
     beforeEach(() => {
         context = {
-            succeed: spy()
+            succeed: spy(),
         };
     });
 
@@ -45,7 +43,7 @@ describe("Cycle2work reports function", () => {
             start_date: "2017-10-01T00:00:00Z",
             distance: 20,
             athlete: athlete1,
-            club
+            club,
         });
 
         await handler(null, context);
@@ -60,24 +58,15 @@ describe("Cycle2work reports function", () => {
             activities: [
                 {
                     id: 1,
-                    distance: 20
-                }
+                    distance: 20,
+                },
             ],
             distances: [20],
             athlete: athlete1,
-            club
+            club,
         });
 
-        const processed = await db
-            .collection(PROCESSED_ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
-        expect(processed.length).to.be.equal(1);
-
-        const activities = await db
-            .collection(ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
+        const activities = await db.collection(ACTIVITIES_COLLECTION).find().toArray();
         expect(activities).to.be.empty;
     });
 
@@ -87,7 +76,7 @@ describe("Cycle2work reports function", () => {
             start_date: "2017-10-01T00:00:00Z",
             distance: 25,
             athlete: athlete1,
-            club
+            club,
         });
 
         await handler(null, context);
@@ -102,28 +91,19 @@ describe("Cycle2work reports function", () => {
             activities: [
                 {
                     id: 1,
-                    distance: 20
+                    distance: 20,
                 },
                 {
                     id: 2,
-                    distance: 25
-                }
+                    distance: 25,
+                },
             ],
             distances: [20, 25],
             athlete: athlete1,
-            club
+            club,
         });
 
-        const processed = await db
-            .collection(PROCESSED_ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
-        expect(processed.length).to.be.equal(2);
-
-        const activities = await db
-            .collection(ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
+        const activities = await db.collection(ACTIVITIES_COLLECTION).find().toArray();
         expect(activities).to.be.empty;
     });
 
@@ -133,7 +113,7 @@ describe("Cycle2work reports function", () => {
             start_date: "2017-11-01T00:00:00Z",
             distance: 35,
             athlete: athlete1,
-            club
+            club,
         });
 
         await handler(null, context);
@@ -148,24 +128,15 @@ describe("Cycle2work reports function", () => {
             activities: [
                 {
                     id: 3,
-                    distance: 35
-                }
+                    distance: 35,
+                },
             ],
             distances: [35],
             athlete: athlete1,
-            club
+            club,
         });
 
-        const processed = await db
-            .collection(PROCESSED_ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
-        expect(processed.length).to.be.equal(3);
-
-        const activities = await db
-            .collection(ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
+        const activities = await db.collection(ACTIVITIES_COLLECTION).find().toArray();
         expect(activities).to.be.empty;
     });
 
@@ -176,60 +147,57 @@ describe("Cycle2work reports function", () => {
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 35,
                 athlete: athlete1,
-                club
+                club,
             },
             {
                 id: 4,
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 35,
                 athlete: athlete1,
-                club
+                club,
             },
             {
                 id: 5,
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 15,
                 athlete: athlete2,
-                club
+                club,
             },
             {
                 id: 5,
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 15,
                 athlete: athlete2,
-                club
+                club,
             },
             {
                 id: 6,
                 start_date: "2017-11-02T00:00:00Z",
                 distance: 15,
                 athlete: athlete2,
-                club
+                club,
             },
             {
                 id: 7,
                 start_date: "2017-08-01T00:00:00Z",
                 distance: 20,
                 athlete: athlete3,
-                club
+                club,
             },
             {
                 id: 8,
                 start_date: "2017-11-01T00:00:00Z",
                 distance: 20,
                 athlete: athlete3,
-                club
-            }
+                club,
+            },
         ]);
 
         await handler(null, context);
 
         expect(context.succeed).to.have.been.calledOnce;
 
-        const reports = await db
-            .collection(REPORTS_COLLECTION)
-            .find()
-            .toArray();
+        const reports = await db.collection(REPORTS_COLLECTION).find().toArray();
         expect(reports).to.be.deep.equal([
             {
                 _id: "11201710",
@@ -238,16 +206,16 @@ describe("Cycle2work reports function", () => {
                 activities: [
                     {
                         id: 1,
-                        distance: 20
+                        distance: 20,
                     },
                     {
                         id: 2,
-                        distance: 25
-                    }
+                        distance: 25,
+                    },
                 ],
                 distances: [20, 25],
                 athlete: athlete1,
-                club
+                club,
             },
             {
                 _id: "11201711",
@@ -256,16 +224,16 @@ describe("Cycle2work reports function", () => {
                 activities: [
                     {
                         id: 3,
-                        distance: 35
+                        distance: 35,
                     },
                     {
                         id: 4,
-                        distance: 35
-                    }
+                        distance: 35,
+                    },
                 ],
                 distances: [35, 35],
                 athlete: athlete1,
-                club
+                club,
             },
             {
                 _id: "21201711",
@@ -274,16 +242,16 @@ describe("Cycle2work reports function", () => {
                 activities: [
                     {
                         id: 5,
-                        distance: 15
+                        distance: 15,
                     },
                     {
                         id: 6,
-                        distance: 15
-                    }
+                        distance: 15,
+                    },
                 ],
                 distances: [15, 15],
                 athlete: athlete2,
-                club
+                club,
             },
             {
                 _id: "31201708",
@@ -292,12 +260,12 @@ describe("Cycle2work reports function", () => {
                 activities: [
                     {
                         id: 7,
-                        distance: 20
-                    }
+                        distance: 20,
+                    },
                 ],
                 distances: [20],
                 athlete: athlete3,
-                club
+                club,
             },
             {
                 _id: "31201711",
@@ -306,25 +274,16 @@ describe("Cycle2work reports function", () => {
                 activities: [
                     {
                         id: 8,
-                        distance: 20
-                    }
+                        distance: 20,
+                    },
                 ],
                 distances: [20],
                 athlete: athlete3,
-                club
-            }
+                club,
+            },
         ]);
 
-        const processed = await db
-            .collection(PROCESSED_ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
-        expect(processed.length).to.be.equal(10);
-
-        const activities = await db
-            .collection(ACTIVITIES_COLLECTION)
-            .find()
-            .toArray();
+        const activities = await db.collection(ACTIVITIES_COLLECTION).find().toArray();
         expect(activities).to.be.empty;
     });
 });
