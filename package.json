@@ -24,7 +24,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^4.2.0",
     "codecov": "^1.0.1",
-    "eslint": "^7.13.0",
+    "eslint": "^7.27.0",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
     "sinon": "^9.2.1",
